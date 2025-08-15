@@ -49,7 +49,7 @@ class Games:
     async def fetch_all_games(self) -> list[Game]:
         db_response: aiosqlite.Cursor = await connection.execute(self.FETCH_ALL_GAMES_QUERY)
 
-        return [Game(*game_params) for game_params in await db_response.fetchall()]
+        return [Game(*game_data) for game_data in await db_response.fetchall()]
 
     async def fetch_game(self, game_id: int) -> Game | None:
         db_response: aiosqlite.Cursor = await connection.execute(
@@ -57,12 +57,12 @@ class Games:
             (game_id,)
         )
 
-        if not db_response:
+        game_data = await db_response.fetchone()
+
+        if not game_data:
             return
         else:
-            game_params = await db_response.fetchone()
-
-            return Game(*game_params)
+            return Game(*game_data)
 
     async def insert_new_game(self, name: str, researches: list[dict], researches_image_link: str) -> Game | None:
         db_response: aiosqlite.Cursor = await connection.execute(
@@ -106,11 +106,3 @@ class Games:
     async def __setup(self) -> None:
         await connection.execute(self.SETUP_QUERY)
         await connection.commit()
-
-
-async def main():
-    a = Games()
-    print(await a.insert_new_game("buh", [], "http"))
-
-
-asyncio.run(main())

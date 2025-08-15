@@ -8,3 +8,5 @@ class War:
     aggressor_discord_id: int
     defender_discord_id: int
     end_date_timestamp: float | None
+    war_cooldown: float | None
+    war_cooldown_delay: float | None

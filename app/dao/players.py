@@ -72,7 +72,7 @@ class Players:
     async def eliminate_player(self, game_id: int, player_discord_id: int) -> None:
         await connection.execute(
             self.ELIMINATE_PLAYER_QUERY,
-            (game_id, player_discord_id)
+            (game_id, player_discord_id,)
         )
 
     async def revive_player(self, game_id: int, player_discord_id: int) -> None:
