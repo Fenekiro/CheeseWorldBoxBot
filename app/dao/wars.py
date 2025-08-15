@@ -1,6 +1,4 @@
 import asyncio
-import time
-
 import aiosqlite
 
 from app.dao.sql_settings import connection
@@ -29,13 +27,13 @@ class Wars:
     """
     PAUSE_ALL_WAR_COOLDOWNS_QUERY = """
         UPDATE wars
-        SET cooldown_delay = war_cooldown - strftime('%s', 'now'), war_cooldown = null
+        SET war_cooldown_delay = war_cooldown - strftime('%s', 'now'), war_cooldown = null
         WHERE game_id = ? AND strftime('%s', 'now') < war_cooldown
     """
     CONTINUE_ALL_WAR_COOLDOWNS_QUERY = """
         UPDATE wars
-        SET war_cooldown = strftime('%s', 'now') + cooldown_delay, cooldown_delay = null
-        WHERE game_id = ? AND cooldown_delay IS NOT NULL
+        SET war_cooldown = strftime('%s', 'now') + war_cooldown_delay, war_cooldown_delay = null
+        WHERE game_id = ? AND war_cooldown_delay IS NOT NULL
     """
 
     def __init__(self) -> None:
