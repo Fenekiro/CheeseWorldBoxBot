@@ -1,8 +1,9 @@
 import asyncio
-
 import discord
 
-token = "MTM5MjI4OTE4MDk3Njk0MzE3NA.G5YIuO.5mIKtrID9DwONdXfEDrphnFkMZvrgx9_brc5pw"
+from app.config.config import config
+
+token = config.data.discord.bot_token
 bot = discord.Bot(discord_intents=discord.Intents.all())
 
 
