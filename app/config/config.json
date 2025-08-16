@@ -1,0 +1,17 @@
+{
+  "discord": {
+    "bot_token": "",
+    "commands_channel_id": 0,
+    "events_channel_id": 0,
+    "registration_for_game_channel_id": 0,
+    "admin_ids": [
+      0
+    ],
+    "debug_channel_id": 0,
+    "game_role_id": 0
+  },
+  "service": {
+    "current_game_id": 0,
+    "game_session_is_open": false
+  }
+}
