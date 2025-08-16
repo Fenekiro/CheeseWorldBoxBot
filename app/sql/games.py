@@ -4,11 +4,11 @@ import time
 import aiosqlite
 import ujson
 
-from app.dao.sql_settings import connection
+from app.sql.sql_settings import connection
 from app.entities.game import Game
 
 
-class Games:
+class GamesSql:
     SETUP_QUERY = """
         CREATE TABLE IF NOT EXISTS games (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

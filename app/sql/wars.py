@@ -1,12 +1,12 @@
 import asyncio
 import aiosqlite
 
-from app.dao.sql_settings import connection
+from app.sql.sql_settings import connection
 from app.entities.player import Player
 from app.entities.war import War
 
 
-class Wars:
+class WarsSql:
     SETUP_QUERY = """
         CREATE TABLE IF NOT EXISTS wars(
             id INTEGER PRIMARY KEY AUTOINCREMENT,

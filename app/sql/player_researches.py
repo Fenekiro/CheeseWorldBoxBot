@@ -2,13 +2,13 @@ import asyncio
 import time
 import aiosqlite
 
-from app.dao.sql_settings import connection
+from app.sql.sql_settings import connection
 from app.entities.game_research import GameResearch
 from app.entities.player import Player
 from app.entities.player_research import PlayerResearch
 
 
-class Researches:
+class PlayerResearchesSql:
     SETUP_QUERY = """
         CREATE TABLE IF NOT EXISTS player_researches(
             game_id INTEGER,

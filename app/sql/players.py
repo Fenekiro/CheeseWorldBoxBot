@@ -2,10 +2,10 @@ import asyncio
 import aiosqlite
 
 from app.entities.player import Player
-from app.dao.sql_settings import connection
+from app.sql.sql_settings import connection
 
 
-class Players:
+class PlayersSql:
     SETUP_QUERY = """
         CREATE TABLE IF NOT EXISTS players (
             game_id INTEGER,
