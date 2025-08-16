@@ -18,8 +18,14 @@ class Wars:
             war_cooldown_delay REAL 
         )
     """
-    INSERT_WAR_QUERY = "INSERT INTO wars(game_id, aggressor_discord_id, defender_discord_id) VALUES (?, ?, ?)"
-    FETCH_WAR_QUERY = "SELECT * FROM wars WHERE id = ?"
+    INSERT_WAR_QUERY = """
+        INSERT INTO wars(game_id, aggressor_discord_id, defender_discord_id)
+        VALUES (?, ?, ?)
+    """
+    FETCH_WAR_QUERY = """
+        SELECT * FROM wars
+        WHERE id = ?
+    """
     SET_WAR_END_TIMESTAMP_QUERY = """
         UPDATE wars
         SET end_date_timestamp = strftime('%s', 'now'), war_cooldown = strftime('%s', 'now') + 1800

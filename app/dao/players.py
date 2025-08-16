@@ -18,8 +18,14 @@ class Players:
             is_eliminated SMALLINT
         )
     """
-    FETCH_ALL_PLAYERS_QUERY = "SELECT * FROM players WHERE game_id = ?"
-    FETCH_PLAYER_QUERY = "SELECT * FROM players WHERE game_id = ? AND discord_id = ?"
+    FETCH_ALL_PLAYERS_QUERY = """
+        SELECT * FROM players
+        WHERE game_id = ?
+    """
+    FETCH_PLAYER_QUERY = """
+        SELECT * FROM players
+        WHERE game_id = ? AND discord_id = ?
+    """
     INSERT_PLAYER_QUERY = """
         INSERT INTO players (
             game_id,
@@ -32,10 +38,24 @@ class Players:
             is_eliminated
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     """
-    ELIMINATE_PLAYER_QUERY = "UPDATE players SET is_eliminated = 1 WHERE game_id = ? AND discord_id = ?"
-    REVIVE_PLAYER_QUERY = "UPDATE players SET is_eliminated = 0 WHERE game_id = ? AND discord_id = ?"
-    DELETE_ALL_PLAYERS_QUERY = "DELETE FROM players WHERE game_id = ?"
-    DELETE_PLAYER_QUERY = "DELETE FROM players WHERE game_id = ? AND discord_id = ?"
+    ELIMINATE_PLAYER_QUERY = """
+        UPDATE players
+        SET is_eliminated = 1
+        WHERE game_id = ? AND discord_id = ?
+    """
+    REVIVE_PLAYER_QUERY = """
+        UPDATE players
+        SET is_eliminated = 0
+        WHERE game_id = ? AND discord_id = ?
+    """
+    DELETE_ALL_PLAYERS_QUERY = """
+        DELETE FROM players 
+        WHERE game_id = ?
+    """
+    DELETE_PLAYER_QUERY = """
+        DELETE FROM players
+        WHERE game_id = ? AND discord_id = ?
+    """
 
     def __init__(self) -> None:
         asyncio.create_task(self.__setup())
@@ -69,16 +89,16 @@ class Players:
 
         return player
 
-    async def eliminate_player(self, game_id: int, player_discord_id: int) -> None:
+    async def eliminate_player(self, player: Player) -> None:
         await connection.execute(
             self.ELIMINATE_PLAYER_QUERY,
-            (game_id, player_discord_id,)
+            (player.game_id, player.discord_id,)
         )
 
-    async def revive_player(self, game_id: int, player_discord_id: int) -> None:
+    async def revive_player(self, player: Player) -> None:
         await connection.execute(
             self.REVIVE_PLAYER_QUERY,
-            (game_id, player_discord_id,)
+            (player.game_id, player.discord_id,)
         )
 
     async def delete_all_players(self, game_id: int) -> None:
@@ -87,10 +107,10 @@ class Players:
             (game_id,)
         )
 
-    async def delete_player(self, game_id: int, player_discord_id: int) -> None:
+    async def delete_player(self, player: Player) -> None:
         await connection.execute(
             self.DELETE_PLAYER_QUERY,
-            (game_id, player_discord_id,)
+            (player.game_id, player.discord_id,)
         )
 
     async def __setup(self) -> None:

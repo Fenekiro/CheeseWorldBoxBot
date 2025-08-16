@@ -24,7 +24,10 @@ class Games:
         )
     """
     FETCH_ALL_GAMES_QUERY = "SELECT * FROM games"
-    FETCH_GAME_QUERY = "SELECT * FROM games WHERE id = ?"
+    FETCH_GAME_QUERY = """
+        SELECT * FROM games
+        WHERE id = ?
+    """
     INSERT_NEW_GAME_QUERY = """
         INSERT INTO games(
             name,
@@ -39,9 +42,20 @@ class Games:
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     """
-    TOGGLE_GAME_REGISTRATION_STATUS_QUERY = "UPDATE games SET is_open_for_registration = ? WHERE id = ?"
-    FINISH_GAME_QUERY = "UPDATE games SET end_date_timestamp = ?, winners = ?, image_link = ?, is_finished = ? WHERE id = ?"
-    DELETE_GAME_QUERY = "DELETE FROM games WHERE id = ?"
+    TOGGLE_GAME_REGISTRATION_STATUS_QUERY = """
+        UPDATE games
+        SET is_open_for_registration = ?
+        WHERE id = ?
+    """
+    FINISH_GAME_QUERY = """
+        UPDATE games
+        SET end_date_timestamp = ?, winners = ?, image_link = ?, is_finished = ?
+        WHERE id = ?
+    """
+    DELETE_GAME_QUERY = """
+        DELETE FROM games
+        WHERE id = ?
+    """
 
     def __init__(self) -> None:
         asyncio.create_task(self.__setup())
